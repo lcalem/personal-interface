@@ -7,7 +7,7 @@ from collections import defaultdict
 from pymongo import MongoClient
 
 # from bson import ObjectId
-from flask import Flask, request
+from flask import Flask, request, redirect
 from jinja2 import PackageLoader, Environment, select_autoescape
 from werkzeug.datastructures import ImmutableMultiDict
 from werkzeug.wrappers import Response
@@ -76,12 +76,31 @@ def format_dozen_data(raw_data):
 with app.app_context():
 
     @app.route('/', methods=["GET"])
-    def check():
+    def index():
         '''
         serving index
         '''
+        today = datetime.datetime.now().strftime("%Y-%m-%d")
+        return redirect("/%s" % today, code=302)
+
+
+    @app.route('/<date>', methods=["GET"])
+    def get_summary(date):
+        '''
+        serving index for the day
+        '''
+        datetime_object = datetime.datetime.strptime(date, '%Y-%m-%d')
+        if datetime_object > datetime.datetime.now():
+            return create_response(error=True, message=str("can't see in the future!"), status_code=400)
+
+        # check for existing data
+        data = {}
+        stored_day = db.monitoring_day.find_one({"date": date})
+        if stored_day:
+            data = stored_day.get("happiness_data", {})
+
         template = env.get_template('index.html')
-        return template.render(date=datetime.datetime.now().strftime("%Y-%m-%d"))
+        return template.render(date=date, data=data)    
 
 
     @app.route('/insert/happiness', methods=["POST"])

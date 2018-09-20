@@ -89,27 +89,27 @@
                         <dt>Happiness Level</dt>
                         <dd>                        
                             <div class="opt-radio">
-                                <input type="radio" id="one" name="happy-level" value="1"/>
+                                <input type="radio" id="one" name="happy-level" value="1" {{ 'checked' if data.level == 1 else '' }}/>
                                 <label for="one">1</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="two" name="happy-level" value="2"/>
+                                <input type="radio" id="two" name="happy-level" value="2" {{ 'checked' if data.level == 2 else '' }}/>
                                 <label for="two">2</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="three" name="happy-level" value="3"/>
+                                <input type="radio" id="three" name="happy-level" value="3" {{ 'checked' if data.level == 3 else '' }}/>
                                 <label for="three">3</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="four" name="happy-level" value="4"/>
+                                <input type="radio" id="four" name="happy-level" value="4" {{ 'checked' if data.level == 4 else '' }}/>
                                 <label for="four">4</label>
                             </div>
                             
                             <div class="opt-radio">
-                                <input type="radio" id="five" name="happy-level" value="5"/>
+                                <input type="radio" id="five" name="happy-level" value="5" {{ 'checked' if data.level == 5 else '' }}/>
                                 <label for="five">5</label>
                             </div>
 
@@ -120,34 +120,34 @@
                         <dt>Main reason for happiness</dt>
                         <dd>
                             <div class="opt-radio">
-                                <input type="radio" id="ff" name="happy-reason" value="ff"/>
+                                <input type="radio" id="ff" name="happy-reason" value="ff" {{ 'checked' if data.happy_reason == "ff" else '' }}/>
                                 <label for="ff">Friends and family</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="work" name="happy-reason" value="work"/>
+                                <input type="radio" id="work" name="happy-reason" value="work" {{ 'checked' if data.happy_reason == "work" else '' }}/>
                                 <label for="work">Day work</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="projects" name="happy-reason" value="projects"/>
+                                <input type="radio" id="projects" name="happy-reason" value="projects" {{ 'checked' if data.happy_reason == "projects" else '' }}/>
                                 <label for="projects">Projects</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="learning" name="happy-reason" value="learning"/>
+                                <input type="radio" id="learning" name="happy-reason" value="learning" {{ 'checked' if data.happy_reason == "learning" else '' }}/>
                                 <label for="learning">Learning</label>
                             </div>
                             
                             <div class="opt-radio">
-                                <input type="radio" id="entertainment" name="happy-reason" value="entertainment"/>
+                                <input type="radio" id="entertainment" name="happy-reason" value="entertainment" {{ 'checked' if data.happy_reason == "entertainment" else '' }}/>
                                 <label for="entertainment">Entertainment</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="other" name="happy-reason" value="other"/>
+                                <input type="radio" id="other" name="happy-reason" value="other" {{ 'checked' if data.happy_reason == "other" else '' }}/>
                                 <label for="other">Other</label>
-                                <input class="form-control radio-txt" type="text" name="other-happy">
+                                <input class="form-control radio-txt" type="text" name="other-happy" value={{ data.happy_reason_detail or ''}}>
                             </div>
 
                         </dd>
@@ -157,34 +157,34 @@
                         <dt>Main reason for unhappiness</dt>
                         <dd>                            
                             <div class="opt-radio">
-                                <input type="radio" id="ff" name="unhappy-reason" value="ff"/>
+                                <input type="radio" id="ff" name="unhappy-reason" value="ff" {{ 'checked' if data.unhappy_reason == "ff" else '' }}/>
                                 <label for="ff">Friends and family</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="work" name="unhappy-reason" value="work"/>
+                                <input type="radio" id="work" name="unhappy-reason" value="work" {{ 'checked' if data.unhappy_reason == "work" else '' }}/>
                                 <label for="work">Day work</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="projects" name="unhappy-reason" value="projects"/>
+                                <input type="radio" id="projects" name="unhappy-reason" value="projects" {{ 'checked' if data.unhappy_reason == "projects" else '' }}/>
                                 <label for="projects">Projects</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="learning" name="unhappy-reason" value="learning"/>
+                                <input type="radio" id="learning" name="unhappy-reason" value="learning" {{ 'checked' if data.unhappy_reason == "learning" else '' }}/>
                                 <label for="learning">Learning</label>
                             </div>
                             
                             <div class="opt-radio">
-                                <input type="radio" id="entertainment" name="unhappy-reason" value="entertainment"/>
+                                <input type="radio" id="entertainment" name="unhappy-reason" value="entertainment" {{ 'checked' if data.unhappy_reason == "entertainment" else '' }}/>
                                 <label for="entertainment">Entertainment</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="other" name="unhappy-reason" value="other"/>
+                                <input type="radio" id="other" name="unhappy-reason" value="other" {{ 'checked' if data.unhappy_reason == "other" else '' }}/>
                                 <label for="other">Other</label>
-                                <input class="form-control radio-txt" type="text" name="other-unhappy">
+                                <input class="form-control radio-txt" type="text" name="other-unhappy" value={{ data.unhappy_reason_detail or ''}}>
                             </div>
                         </dd>
                     </div>
