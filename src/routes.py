@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 
@@ -5,9 +6,14 @@ from collections import defaultdict
 
 # from bson import ObjectId
 from flask import Flask, request
+from jinja2 import PackageLoader, Environment, select_autoescape
 from werkzeug.wrappers import Response
 
 app = Flask(__name__)
+env = Environment(
+    loader=PackageLoader('src', 'templates'),
+    autoescape=select_autoescape(['html', 'xml'])
+)
 
 
 def create_response(error=False, message="", status_code=200, extra_response=None):
@@ -24,16 +30,6 @@ def create_response(error=False, message="", status_code=200, extra_response=Non
     return r
 
 
-def get_file(filename):
-    try:
-        root_dir = os.path.abspath(os.path.dirname(__file__))
-        src_file = os.path.join(root_dir, filename)
-        with open(src_file, "r") as f_in:
-            return f_in.read()
-    except IOError as exc:
-        return str(exc)
-
-
 with app.app_context():
 
     @app.route('/', methods=["GET"])
@@ -41,6 +37,13 @@ with app.app_context():
         '''
         serving index
         '''
-        content = get_file('index.html')
-        return Response(content, mimetype="text/html")
+        template = env.get_template('index.html')
+        return template.render(date=datetime.datetime.now().strftime("%Y-%m-%d"))
+
+    @app.route('/insert/happiness', methods=["POST"])
+    def happiness_check():
+        '''
+        process hapiness data
+        '''
+        pass
 
