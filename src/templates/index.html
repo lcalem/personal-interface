@@ -42,6 +42,38 @@
         }
 
     </style>
+    <script>
+        "use strict";
+        function convertDate(date) 
+        {
+            var yyyy = date.getFullYear().toString();
+            var mm = (date.getMonth() + 1).toString();
+            var dd  = date.getDate().toString();
+
+            var mmChars = mm.split('');
+            var ddChars = dd.split('');
+
+            return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+        }
+
+        function submitForm(form)
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function(){ alert (xhr.responseText); }
+            xhr.onerror = function(){ alert (xhr.responseText); }
+            xhr.open(form.method, "/insert/happiness", true);
+            // xhr.setRequestHeader("Content-Type", "application/json");
+            var data = new FormData(form)
+
+            // append date
+            var today = new Date();
+            data.append("date", convertDate(today))
+
+            console.log(data)
+            xhr.send(data);
+            return false;
+        }
+    </script>
 
 </head>
 
@@ -51,33 +83,33 @@
         <h1>Summary for {{ date }}</h1>
         <div class="happiness">
             <h2>Happiness</h2>
-            <form class="form-daily" method="POST" action="/insert/happiness">
+            <form class="form-daily" method="POST" action="" onsubmit="return submitForm(this);">
                 <dl class="dl-horizontal">
                     <div id="happiness-level">
                         <dt>Happiness Level</dt>
                         <dd>                        
                             <div class="opt-radio">
-                                <input type="radio" id="one" name="happy-level" value="one"/>
+                                <input type="radio" id="one" name="happy-level" value="1"/>
                                 <label for="one">1</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="two" name="happy-level" value="two"/>
+                                <input type="radio" id="two" name="happy-level" value="2"/>
                                 <label for="two">2</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="three" name="happy-level" value="three"/>
+                                <input type="radio" id="three" name="happy-level" value="3"/>
                                 <label for="three">3</label>
                             </div>
 
                             <div class="opt-radio">
-                                <input type="radio" id="four" name="happy-level" value="four"/>
+                                <input type="radio" id="four" name="happy-level" value="4"/>
                                 <label for="four">4</label>
                             </div>
                             
                             <div class="opt-radio">
-                                <input type="radio" id="five" name="happy-level" value="five"/>
+                                <input type="radio" id="five" name="happy-level" value="5"/>
                                 <label for="five">5</label>
                             </div>
 
@@ -152,7 +184,7 @@
                             <div class="opt-radio">
                                 <input type="radio" id="other" name="unhappy-reason" value="other"/>
                                 <label for="other">Other</label>
-                                <input class="form-control radio-txt" type="text" name="other-happy">
+                                <input class="form-control radio-txt" type="text" name="other-unhappy">
                             </div>
                         </dd>
                     </div>
