@@ -1,0 +1,39 @@
+.content {
+    width: 800px;
+    margin: auto;
+}
+
+.happiness, .dozen {
+    margin-top: 100px;
+    display: inline-block;
+    width: 49%;
+}
+
+.dozen {
+    vertical-align: top;
+}
+
+.opt-radio {
+    height: 35px;
+}
+
+.radio-txt {
+    width: 100px;
+    height: 30px;
+    display: inline-block;
+    border-radius: .25rem;
+    color: #495057;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da
+}
+
+.form-daily dt {
+    margin-bottom: 10px;
+}
+
+#happiness-level .opt-radio {
+    display: inline-block;
+    width: 50px;
+}

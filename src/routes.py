@@ -7,16 +7,11 @@ from collections import defaultdict
 from pymongo import MongoClient
 
 # from bson import ObjectId
-from flask import Flask, request, redirect
-from jinja2 import PackageLoader, Environment, select_autoescape
+from flask import Flask, request, redirect, render_template
 from werkzeug.datastructures import ImmutableMultiDict
 from werkzeug.wrappers import Response
 
 app = Flask(__name__)
-env = Environment(
-    loader=PackageLoader('src', 'templates'),
-    autoescape=select_autoescape(['html', 'xml'])
-)
 client = MongoClient('mongo', 27017)
 db = client.data
 
@@ -64,7 +59,7 @@ def format_happiness_data(raw_data):
 
         if reasons[0] == "other":
             details = raw_data.get("other-%s" % reason_type, [''])[0]  # meh
-            formatted_data["%s_reason_detail" % reason_type] = re.sub('[\W_]+', ' ', details) 
+            formatted_data["%s_reason_detail" % reason_type] = re.sub(r'[\W_]+', ' ', details) 
 
     return formatted_data
 
@@ -76,6 +71,11 @@ def format_dozen_data(raw_data):
 with app.app_context():
 
     @app.route('/', methods=["GET"])
+    def hello():
+        return create_response(message="Hello i'm working")
+
+
+    @app.route('/day', methods=["GET"])
     def index():
         '''
         serving index
@@ -84,7 +84,7 @@ with app.app_context():
         return redirect("/%s" % today, code=302)
 
 
-    @app.route('/<date>', methods=["GET"])
+    @app.route('/day/<date>', methods=["GET"])
     def get_summary(date):
         '''
         serving index for the day
@@ -99,8 +99,7 @@ with app.app_context():
         if stored_day:
             data = stored_day.get("happiness_data", {})
 
-        template = env.get_template('index.html')
-        return template.render(date=date, data=data)    
+        return render_template('index.html', date=date, data=data)    
 
 
     @app.route('/insert/happiness', methods=["POST"])

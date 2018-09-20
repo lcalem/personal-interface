@@ -3,45 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<title>Daily data</title>
-    <!-- <link rel="stylesheet" type="text/css" href="style/style.css"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <style>
-        
-        .content {
-            width: 800px;
-            margin: auto;
-        }
-
-        .happiness, .dozen {
-            margin-top: 100px;
-            display: inline-block;
-            width: 49%;
-        }
-
-        .dozen {
-            vertical-align: top;
-        }
-
-        .opt-radio {
-            height: 35px;
-        }
-
-        .radio-txt {
-            width: 200px;
-            height: 30px;
-            display: inline-block;
-        }
-
-        .form-daily dt {
-            margin-bottom: 10px;
-        }
-
-        #happiness-level .opt-radio {
-            display: inline-block;
-            width: 50px;
-        }
-
-    </style>
+    <!-- <script src="{{ url_for('static', filename='script.js') }}"></script> -->
     <script>
         "use strict";
         function convertDate(date) 
@@ -147,7 +111,7 @@
                             <div class="opt-radio">
                                 <input type="radio" id="other" name="happy-reason" value="other" {{ 'checked' if data.happy_reason == "other" else '' }}/>
                                 <label for="other">Other</label>
-                                <input class="form-control radio-txt" type="text" name="other-happy" value={{ data.happy_reason_detail or ''}}>
+                                <input class="radio-txt" type="text" name="other-happy" value={{ data.happy_reason_detail or ''}}>
                             </div>
 
                         </dd>
@@ -184,7 +148,7 @@
                             <div class="opt-radio">
                                 <input type="radio" id="other" name="unhappy-reason" value="other" {{ 'checked' if data.unhappy_reason == "other" else '' }}/>
                                 <label for="other">Other</label>
-                                <input class="form-control radio-txt" type="text" name="other-unhappy" value={{ data.unhappy_reason_detail or ''}}>
+                                <input class="radio-txt" type="text" name="other-unhappy" value={{ data.unhappy_reason_detail or ''}}>
                             </div>
                         </dd>
                     </div>
@@ -201,7 +165,7 @@
             <h2>Daily dozen</h2>
             <form class="form-daily" method="POST" action="/insert/dozen">
                 <div class="opt-radio">
-                    <img src="imgs/beans.png" alt="Beans" height="42" width="42">
+                    <img src="{{ url_for('static', filename='imgs/beans.png') }}" alt="Beans" height="42" width="42">
                     <label for="beans">Beans</label>
                     <input type="checkbox" id="beans1" name="dozen" value="beans1" />
                     <input type="checkbox" id="beans2" name="dozen" value="beans2" />
