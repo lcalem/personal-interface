@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Daily data</title>
+    <!-- <link rel="stylesheet" type="text/css" href="style/style.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        
+        .content {
+            width: 800px;
+            margin: auto;
+        }
+
+        .happiness, .dozen {
+            margin-top: 100px;
+            display: inline-block;
+            width: 49%;
+        }
+
+        .dozen {
+            vertical-align: top;
+        }
+
+        .opt-radio {
+            height: 35px;
+        }
+
+        .radio-txt {
+            width: 200px;
+            height: 30px;
+            display: inline-block;
+        }
+
+        .form-daily dt {
+            margin-bottom: 10px;
+        }
+
+        #happiness-level .opt-radio {
+            display: inline-block;
+            width: 50px;
+        }
+
+    </style>
+
+</head>
+
+<body id="home">
+
+    <div class="content">
+        <div class="happiness">
+            <h2>Happiness</h2>
+            <form class="form-daily" method="POST" action="/insert/happiness">
+                <dl class="dl-horizontal">
+                    <div id="happiness-level">
+                        <dt>Happiness Level</dt>
+                        <dd>                        
+                            <div class="opt-radio">
+                                <input type="radio" id="one" name="happy-level" value="one"/>
+                                <label for="one">1</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="two" name="happy-level" value="two"/>
+                                <label for="two">2</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="three" name="happy-level" value="three"/>
+                                <label for="three">3</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="four" name="happy-level" value="four"/>
+                                <label for="four">4</label>
+                            </div>
+                            
+                            <div class="opt-radio">
+                                <input type="radio" id="five" name="happy-level" value="five"/>
+                                <label for="five">5</label>
+                            </div>
+
+                        </dd>
+                    </div>
+
+                    <div id="happiness-reason">
+                        <dt>Main reason for happiness</dt>
+                        <dd>
+                            <div class="opt-radio">
+                                <input type="radio" id="ff" name="happy-reason" value="ff"/>
+                                <label for="ff">Friends and family</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="work" name="happy-reason" value="work"/>
+                                <label for="work">Day work</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="projects" name="happy-reason" value="projects"/>
+                                <label for="projects">Projects</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="learning" name="happy-reason" value="learning"/>
+                                <label for="learning">Learning</label>
+                            </div>
+                            
+                            <div class="opt-radio">
+                                <input type="radio" id="entertainment" name="happy-reason" value="entertainment"/>
+                                <label for="entertainment">Entertainment</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="other" name="happy-reason" value="other"/>
+                                <label for="other">Other</label>
+                                <input class="form-control radio-txt" type="text" name="other-happy">
+                            </div>
+
+                        </dd>
+                    </div>
+
+                    <div id="happiness-reason">
+                        <dt>Main reason for unhappiness</dt>
+                        <dd>                            
+                            <div class="opt-radio">
+                                <input type="radio" id="ff" name="unhappy-reason" value="ff"/>
+                                <label for="ff">Friends and family</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="work" name="unhappy-reason" value="work"/>
+                                <label for="work">Day work</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="projects" name="unhappy-reason" value="projects"/>
+                                <label for="projects">Projects</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="learning" name="unhappy-reason" value="learning"/>
+                                <label for="learning">Learning</label>
+                            </div>
+                            
+                            <div class="opt-radio">
+                                <input type="radio" id="entertainment" name="unhappy-reason" value="entertainment"/>
+                                <label for="entertainment">Entertainment</label>
+                            </div>
+
+                            <div class="opt-radio">
+                                <input type="radio" id="other" name="unhappy-reason" value="other"/>
+                                <label for="other">Other</label>
+                                <input class="form-control radio-txt" type="text" name="other-happy">
+                            </div>
+                        </dd>
+                    </div>
+                </dl>
+
+                <!-- <input class="form-control" type="text" required name="email" placeholder="Email address">
+                <input class="form-control" type="password" required name="password" placeholder="Password">
+                <label class="checkbox"></label> -->
+                <button class="btn btn-primary btn-block" type="submit">Send</button>
+            </form>
+        </div>
+
+        <div class="dozen">
+            <h2>Daily dozen</h2>
+            <form class="form-daily" method="POST" action="/insert/dozen">
+                <div class="opt-radio">
+                    <img src="imgs/beans.png" alt="Beans" height="42" width="42">
+                    <label for="beans">Beans</label>
+                    <input type="checkbox" id="beans1" name="dozen" value="beans1" />
+                    <input type="checkbox" id="beans2" name="dozen" value="beans2" />
+                    <input type="checkbox" id="beans3" name="dozen" value="beans3" />
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

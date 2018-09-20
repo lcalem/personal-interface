@@ -1,4 +1,5 @@
 import json
+import os
 
 from collections import defaultdict
 
@@ -23,6 +24,16 @@ def create_response(error=False, message="", status_code=200, extra_response=Non
     return r
 
 
+def get_file(filename):
+    try:
+        root_dir = os.path.abspath(os.path.dirname(__file__))
+        src_file = os.path.join(root_dir, filename)
+        with open(src_file, "r") as f_in:
+            return f_in.read()
+    except IOError as exc:
+        return str(exc)
+
+
 with app.app_context():
 
     @app.route('/', methods=["GET"])
@@ -30,4 +41,6 @@ with app.app_context():
         '''
         serving index
         '''
-        return create_response(message="[data gathering] Hello i'm working. GIVE ME DATA")
+        content = get_file('index.html')
+        return Response(content, mimetype="text/html")
+
