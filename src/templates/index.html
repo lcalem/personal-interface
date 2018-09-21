@@ -16,7 +16,7 @@
         <div class="happiness">
             <h2>Happiness</h2>
             <form class="form-daily" method="POST" action="" onsubmit="return submitForm(this);">
-                <dl class="dl-horizontal">
+                <dl class="dl-horizontal form-content">
                     <div id="happiness-level">
                         <dt>Happiness Level</dt>
                         <dd>                     
@@ -62,25 +62,29 @@
                     </div>
                 </dl>
 
-                <!-- <input class="form-control" type="text" required name="email" placeholder="Email address">
-                <input class="form-control" type="password" required name="password" placeholder="Password">
-                <label class="checkbox"></label> -->
-                <button class="btn btn-primary btn-block" type="submit">Send</button>
+                <button class="btn btn-primary btn-block btn-submit" type="submit">Send</button>
             </form>
         </div>
 
         <div class="dozen">
             <h2>Daily dozen</h2>
             <form class="form-daily" method="POST" action="/insert/dozen">
-                <div class="opt-radio">
-                    <img src="{{ url_for('static', filename='imgs/beans.png') }}" alt="Beans" height="42" width="42">
-                    <label for="beans">Beans</label>
-                    <input type="checkbox" id="beans1" name="dozen" value="beans1" />
-                    <input type="checkbox" id="beans2" name="dozen" value="beans2" />
-                    <input type="checkbox" id="beans3" name="dozen" value="beans3" />
+                <div class="form-content">
+                    {% for elt, quantity in dozen.items() %}
+                        <div class="opt-radio opt-dozen">
+                            <img class="dozen-ico" src="{{ url_for('static', filename='imgs/'+elt+'.png') }}" alt={{ elt }} height="42" width="42">
+                            <label for={{ elt }}>{{ elt }}</label>
+
+                            <div class="elt-count">
+                                {% for i in range(quantity) %}
+                                    <input type="checkbox" id="beans1" name="dozen" value="beans1" />
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+                <button class="btn btn-primary btn-block btn-submit" type="submit">Send</button>
             </form>
         </div>
     </div>

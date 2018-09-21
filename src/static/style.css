@@ -4,9 +4,19 @@
 }
 
 .happiness, .dozen {
-    margin-top: 100px;
+    /* margin: 100px 0px 0px 100px; */
+    margin-top: 50px;
     display: inline-block;
     width: 49%;
+    height: 800px;
+}
+
+.form-content {
+    padding-right: 50px;
+}
+
+.btn-submit {
+    vertical-align: bottom;
 }
 
 .dozen {
@@ -36,4 +46,18 @@
 #happiness-level .opt-radio {
     display: inline-block;
     width: 50px;
+}
+
+.opt-dozen {
+    height: 55px;
+}
+
+.dozen-ico {
+    margin-right: 10px;
+}
+
+.elt-count {
+    display: inline-block;
+    float: right;
+    margin-top: 5px;
 }

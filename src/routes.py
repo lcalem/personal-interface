@@ -12,7 +12,7 @@ from flask import Flask, request, redirect, render_template
 from werkzeug.datastructures import ImmutableMultiDict
 from werkzeug.wrappers import Response
 
-from values import SCORES, REASONS
+from values import SCORES, REASONS, DOZEN
 
 app = Flask(__name__)
 client = MongoClient('mongo', 27017)
@@ -102,7 +102,8 @@ with app.app_context():
             "date": date,
             "data": data,
             "scores": SCORES,
-            "reasons": REASONS
+            "reasons": REASONS,
+            "dozen": DOZEN
         }
 
         return render_template('index.html', **template_data)    
