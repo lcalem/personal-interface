@@ -1,17 +1,5 @@
 "use strict";
 
-function convertDate(date) 
-{
-    var yyyy = date.getFullYear().toString();
-    var mm = (date.getMonth() + 1).toString();
-    var dd  = date.getDate().toString();
-
-    var mmChars = mm.split('');
-    var ddChars = dd.split('');
-
-    return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
-}
-
 
 function submitForm(form)
 {
@@ -23,8 +11,8 @@ function submitForm(form)
     var data = new FormData(form)
 
     // append date
-    var today = new Date();
-    data.append("date", convertDate(today))
+    var current_day = window.location.href.split("/day/")[1];  // that's questionable
+    data.append("date", current_day)
 
     console.log(data)
     xhr.send(data);

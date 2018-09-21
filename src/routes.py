@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import re
+import sys
 
 from collections import defaultdict
 from pymongo import MongoClient
@@ -95,7 +96,7 @@ with app.app_context():
 
         # check for existing data
         data = {}
-        stored_day = db.monitoring_day.find_one({"date": date})
+        stored_day = db.monitoring_days.find_one({"date": date})
         if stored_day:
             data = stored_day.get("happiness_data", {})
 
@@ -106,15 +107,18 @@ with app.app_context():
     def happiness_check():
         '''
         process hapiness data
-        the monitoring_day collection has a unique index on date
+        the monitoring_days collection has a unique index on date
         '''
         content = request.form.to_dict(flat=False)
-        print("raw happiness data %s" % str(content))
+        print("raw happiness data %s" % str(content), file=sys.stderr)
+
+        if not re.match(r'[0-9]{4}-[0-9]{2}-[0-9]{2}', content["date"][0]):  # TODO valid date
+            return create_response(error=True, message="date %s doesn't match a date!" % content["date"][0], status_code=400)
 
         try:
             happiness_data = format_happiness_data(content)
-            print("formatted happiness data %s" % str(happiness_data))
-            db.monitoring_day.update_one({"date": content["date"][0]}, {"$set": {"happiness_data": happiness_data}}, upsert=True)
+            print("formatted happiness data %s" % str(happiness_data), file=sys.stderr)
+            db.monitoring_days.update_one({"date": content["date"][0]}, {"$set": {"happiness_data": happiness_data}}, upsert=True)
         except FormatException as e:
             return create_response(error=True, message=str(e), status_code=400)
 
@@ -130,7 +134,7 @@ with app.app_context():
         print("Dozen content %s" % str(content))
 
         dozen_data = format_dozen_data(content)
-        db.monitoring_day.update_one({"date": content["date"]}, {"$set": {"dozen_data": dozen_data}}, upsert=True)
+        db.monitoring_days.update_one({"date": content["date"]}, {"$set": {"dozen_data": dozen_data}}, upsert=True)
 
         return create_response()
 
