@@ -1,8 +1,7 @@
 "use strict";
 
 
-function submitForm(form)
-{
+function submitForm(form) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function(){ alert (xhr.responseText); }
     xhr.onerror = function(){ alert (xhr.responseText); }
@@ -17,4 +16,14 @@ function submitForm(form)
     console.log(data)
     xhr.send(data);
     return false;
+}
+
+
+function selectQuantity(elt_id) {
+    var nb = parseInt(elt_id.slice(-1));
+    var name = elt_id.slice(0, -1);
+
+    for (var i = 0; i < nb; i++) {
+        document.getElementById(name + String(i)).checked = true;
+    }
 }

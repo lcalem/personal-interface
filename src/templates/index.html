@@ -77,7 +77,7 @@
 
                             <div class="elt-count">
                                 {% for i in range(quantity) %}
-                                    <input type="checkbox" id="beans1" name="dozen" value="beans1" />
+                                    <input type="checkbox" id={{ elt + (i | string) }} name="dozen" value={{ elt + (i | string) }} onClick="selectQuantity(this.id);"/>
                                 {% endfor %}
                             </div>
                         </div>
