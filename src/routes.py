@@ -12,6 +12,8 @@ from flask import Flask, request, redirect, render_template
 from werkzeug.datastructures import ImmutableMultiDict
 from werkzeug.wrappers import Response
 
+from values import SCORES, REASONS
+
 app = Flask(__name__)
 client = MongoClient('mongo', 27017)
 db = client.data
@@ -39,22 +41,18 @@ def format_happiness_data(raw_data):
     '''
     raw happiness data {'happy-level': ['3'], 'happy-reason': ['other'], 'other-happy': ['gloubi'], 'unhappy-reason': ['projects'], 'other-unhappy': [''], 'date': ['2018-09-20']}
     '''
-    # TODO these should be put in a common file and the html template should take from the same source
-    scores_whitelist = ['1', '2', '3', '4', '5']
-    reasons_whitelist = ["ff", "work", "projects", "learning", "entertainment", "other"]
-
     formatted_data = dict()
 
     # score
     score = raw_data.get("happy-level", [])
-    if len(score) != 1 or score[0] not in scores_whitelist:
+    if len(score) != 1 or score[0] not in SCORES:
         raise FormatException("happy-level is not well formatted")
     formatted_data["level"] = int(score[0])
 
     # reasons
     for reason_type in ["happy", "unhappy"]:
         reasons = raw_data.get("%s-reason" % reason_type, [])
-        if len(reasons) != 1 or reasons[0] not in reasons_whitelist:
+        if len(reasons) != 1 or reasons[0] not in REASONS:
             raise FormatException("%s-reason: unknown reason" % reason_type)
         formatted_data["%s_reason" % reason_type] = reasons[0]
 
@@ -100,7 +98,14 @@ with app.app_context():
         if stored_day:
             data = stored_day.get("happiness_data", {})
 
-        return render_template('index.html', date=date, data=data)    
+        template_data = {
+            "date": date,
+            "data": data,
+            "scores": SCORES,
+            "reasons": REASONS
+        }
+
+        return render_template('index.html', **template_data)    
 
 
     @app.route('/insert/happiness', methods=["POST"])
